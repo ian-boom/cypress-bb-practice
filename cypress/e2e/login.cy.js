@@ -174,7 +174,7 @@ describe('Login Tests', () => {
 
                 cy.wait(6000);
 
-                let pathName = acc ? '/app' : /\/(visitors|welcome)$/;
+                let pathName = acc ? /app$/ : /\/(visitors|welcome)$/;
 
                 cy.location('pathname').should('match', pathName);
 
@@ -298,7 +298,7 @@ describe('Login Tests', () => {
         });
     })
 
-    describe.only('Admin Login Testcases', () => {
+    describe('Admin Login Testcases', () => {
         beforeEach(() => {
             cy.visitPage('/login', true);
             cy.get('fieldset').eq(0).as('email');
@@ -387,7 +387,7 @@ describe('Login Tests', () => {
 
         it('Should login when using an the admin way of shadowing an account "<admin>:<user>" if the admin credentials are correct and user account is registered', () => {
             cy.visitPage('/login', true);
-            let invalidCombination = 'ian@brandboom.com:ian.tester.dev@gmail.com';
+            let invalidCombination = 'ian@brandboom.com:bbkurtisrael@gmail.com';
             let genericPassword = 'Boom1234!';
 
             cy.get('@loginForm').within(() => {
@@ -395,18 +395,18 @@ describe('Login Tests', () => {
                 cy.get('@password').find('input').type(genericPassword);
                 cy.get('[data-testid="manual-login-btn"').click();
                 cy.wait(6000);
-                cy.location('pathname').should('eq', '/visitors');
+                cy.location('pathname').should('eq', '/app');
             });
 
             cy.visitPage('/login', false);
 
-            invalidCombination = 'ian@brandboom.com:bbkurtisrael@gmail.com';
+            invalidCombination = 'ian@brandboom.com:ian.tester.dev@gmail.com';
             cy.get('@loginForm').within(() => {
                 cy.get('@email').find('input').type(invalidCombination);
                 cy.get('@password').find('input').type(genericPassword);
                 cy.get('[data-testid="manual-login-btn"').click();
                 cy.wait(6000);
-                cy.location('pathname').should('eq', '/app');
+                cy.location('pathname').should('eq', '/visitors');
             });
         });
     })
