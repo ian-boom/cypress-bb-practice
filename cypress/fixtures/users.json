@@ -1,0 +1,22 @@
+{
+    "admin" : {
+        "email" : "ian@brandboom.com",
+        "password" : "Boom1234!"
+    },
+    "buyers" : [
+        {
+            "email" : "bbkurtisrael@gmail.com",
+            "password" : "Boom1234!"
+        }
+    ],
+    "sellers" : [
+        {
+            "email" : "ian.tester.dev@gmail.com",
+            "password" : "Boom1234!"
+        },
+        {
+            "email" : "ian.quality.test@gmail.com",
+            "password" : "Boom1234!"
+        }
+    ]
+}

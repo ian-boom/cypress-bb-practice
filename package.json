@@ -1,0 +1,17 @@
+{
+  "name": "bb-cypress-test",
+  "version": "1.0.0",
+  "description": "Testing BrandBoom out on .us (possibly on .co and .com if applicable)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kurt Ian Khalid Israel",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.14.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.2"
+  }
+}
