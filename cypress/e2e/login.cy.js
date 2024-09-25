@@ -298,116 +298,59 @@ describe('Login Tests', () => {
         });
     })
 
-    describe('Admin Login Testcases', () => {
+    describe.only('Admin Login Testcases', () => {
         beforeEach(() => {
-            cy.visitPage('/login', true);
-            cy.get('fieldset').eq(0).as('email');
-            cy.get('fieldset').eq(1).as('password');
-            cy.get('[data-testname="login-form"]').as('loginForm');
         });
 
+        const loginQuery = (email, password, succesfulLogin, buyer) => {
+            cy.get('@loginForm').within(() => {
+                cy.get('@email').find('input').type(email);
+                cy.get('@password').find('input').type(password);
+                cy.document().find('[data-notify="container"]').should('not.exist');
+                cy.get('[data-testid="manual-login-btn"').click();
+                cy.wait(500);
+                succesfulLogin ? cy.location('pathname').should('eq', buyer ? '/app' : '/visitors') : cy.document().find('[data-notify="container"]').should('exist');
+            });
+        };
+
+        const adminLogins = (email, password, succesfulLogin, email2 = null) => {
+            presets(false);
+
+            loginQuery(email, password, succesfulLogin, true);
+
+            cy.visitPage('/login', false);
+
+            loginQuery(email2? email2 : email, password, succesfulLogin, false);
+        };
+
         it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the account is not an admin', () => {
-            cy.visitPage('/login', true);
             let invalidCombination = 'ian.tester.dev@gmail.com:ian.quality.test@gmail.com';
             let genericPassword = 'Boom1234!';
 
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
-
-            cy.visitPage('/login', false);
-
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
+            adminLogins(invalidCombination, genericPassword, false);
         });
 
         it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the user account is not registered', () => {
-            cy.visitPage('/login', true);
             let invalidCombination = 'ian@brandboom.com:example@example.com';
             let genericPassword = 'Boom1234!';
 
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
-
-            cy.visitPage('/login', false);
-
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
+            adminLogins(invalidCombination, genericPassword, false);
         });
 
         it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the admin password is incorrect', () => {
-            cy.visitPage('/login', true);
             let invalidCombination = 'ian@brandboom.com:ian.tester.dev@gmail.com';
+            let invalidCombination2 = 'ian@brandboom.com:bbkurtisrael@gmail.com';
             let genericPassword = 'InvalidPassword123!';
 
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
-
-            cy.visitPage('/login', false);
-
-            invalidCombination = 'ian@brandboom.com:bbkurtisrael@gmail.com';
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.document().find('[data-notify="container"]').should('not.exist');
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(500);
-                cy.document().find('[data-notify="container"]').should('exist');
-            });
+            adminLogins(invalidCombination, genericPassword, false, invalidCombination2);
         });
 
         it('Should login when using an the admin way of shadowing an account "<admin>:<user>" if the admin credentials are correct and user account is registered', () => {
-            cy.visitPage('/login', true);
-            let invalidCombination = 'ian@brandboom.com:bbkurtisrael@gmail.com';
+            let bueyerAccount = 'ian@brandboom.com:bbkurtisrael@gmail.com';
+            let sellerAccount = 'ian@brandboom.com:ian.tester.dev@gmail.com';
             let genericPassword = 'Boom1234!';
 
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(6000);
-                cy.location('pathname').should('eq', '/app');
-            });
-
-            cy.visitPage('/login', false);
-
-            invalidCombination = 'ian@brandboom.com:ian.tester.dev@gmail.com';
-            cy.get('@loginForm').within(() => {
-                cy.get('@email').find('input').type(invalidCombination);
-                cy.get('@password').find('input').type(genericPassword);
-                cy.get('[data-testid="manual-login-btn"').click();
-                cy.wait(6000);
-                cy.location('pathname').should('eq', '/visitors');
-            });
+            adminLogins(bueyerAccount, genericPassword, true, sellerAccount);
         });
     })
 })
