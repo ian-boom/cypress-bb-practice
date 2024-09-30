@@ -13,6 +13,10 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: npm run cypress:run
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
     # Upload screenshots as artifacts in case of test failures
       - name: Upload screenshots
         if: failure()  # Only run this step if tests fail
@@ -20,5 +24,3 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
