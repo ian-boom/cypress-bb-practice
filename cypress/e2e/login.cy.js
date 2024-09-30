@@ -242,6 +242,13 @@ describe('Login Tests', () => {
         it("Should redirect to the forgot password page", () => {
             redirectValidator('Forgot password?', 'https://www.brandboom.us/account/forgotPassword.php?scope=bc');
         });
+
+        it.skip("Should open a google pop up window when google signin is clicked", () => {
+            // Simulate clicking the "Login with Google" button
+            cy.get('.google-login-btn').click();
+
+            cy.get('iframe').should('have.attr', 'src').and('contain', 'https://login.brandboom.us/__/auth/iframe?apiKey=AIzaSyC2-Lg8UR1Ce5An7YV7BZigyiEG_JyFXLo&appName=%5BDEFAULT%5D&v=9.23.0&eid=p&usegapi=');
+        });
     })
 
     describe('Seller Login Testcases', () => {
@@ -298,7 +305,7 @@ describe('Login Tests', () => {
         });
     })
 
-    describe.only('Admin Login Testcases', () => {
+    describe('Admin Login Testcases', () => {
         beforeEach(() => {
         });
 
@@ -323,21 +330,21 @@ describe('Login Tests', () => {
             loginQuery(email2? email2 : email, password, succesfulLogin, false);
         };
 
-        it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the account is not an admin', () => {
+        it('Should not login when using the admin way of shadowing an account "<admin>:<user>" if the account is not an admin', () => {
             let invalidCombination = 'ian.tester.dev@gmail.com:ian.quality.test@gmail.com';
             let genericPassword = 'Boom1234!';
 
             adminLogins(invalidCombination, genericPassword, false);
         });
 
-        it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the user account is not registered', () => {
+        it('Should not login when using the admin way of shadowing an account "<admin>:<user>" if the user account is not registered', () => {
             let invalidCombination = 'ian@brandboom.com:example@example.com';
             let genericPassword = 'Boom1234!';
 
             adminLogins(invalidCombination, genericPassword, false);
         });
 
-        it('Should not login when using an the admin way of shadowing an account "<admin>:<user>" if the admin password is incorrect', () => {
+        it('Should not login when using the admin way of shadowing an account "<admin>:<user>" if the admin password is incorrect', () => {
             let invalidCombination = 'ian@brandboom.com:ian.tester.dev@gmail.com';
             let invalidCombination2 = 'ian@brandboom.com:bbkurtisrael@gmail.com';
             let genericPassword = 'InvalidPassword123!';
@@ -345,7 +352,7 @@ describe('Login Tests', () => {
             adminLogins(invalidCombination, genericPassword, false, invalidCombination2);
         });
 
-        it('Should login when using an the admin way of shadowing an account "<admin>:<user>" if the admin credentials are correct and user account is registered', () => {
+        it('Should login when using the admin way of shadowing an account "<admin>:<user>" if the admin credentials are correct and user account is registered', () => {
             let bueyerAccount = 'ian@brandboom.com:bbkurtisrael@gmail.com';
             let sellerAccount = 'ian@brandboom.com:ian.tester.dev@gmail.com';
             let genericPassword = 'Boom1234!';

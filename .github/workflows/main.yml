@@ -1,0 +1,32 @@
+name: Testing Cypress with GitHub Actions
+
+on: [push]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: npm run cypress:run
+          record: true
+          browser: chrome
+          parallel: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+    # Upload screenshots as artifacts in case of test failures
+      - name: Upload screenshots
+        if: failure()  # Only run this step if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
