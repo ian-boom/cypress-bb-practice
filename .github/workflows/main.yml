@@ -5,6 +5,10 @@ on: [push]
 jobs:
   install:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -14,6 +18,8 @@ jobs:
         with:
           runTests: npm run cypress:run
           record: true
+          browser: chrome
+          parallel: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 

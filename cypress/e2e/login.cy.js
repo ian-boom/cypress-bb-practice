@@ -305,7 +305,7 @@ describe('Login Tests', () => {
         });
     })
 
-    describe.only('Admin Login Testcases', () => {
+    describe('Admin Login Testcases', () => {
         beforeEach(() => {
         });
 
