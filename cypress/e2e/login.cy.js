@@ -242,6 +242,13 @@ describe('Login Tests', () => {
         it("Should redirect to the forgot password page", () => {
             redirectValidator('Forgot password?', 'https://www.brandboom.us/account/forgotPassword.php?scope=bc');
         });
+
+        it.only("Should open a google pop up window when google signin is clicked", () => {
+            // Simulate clicking the "Login with Google" button
+            cy.get('.google-login-btn').click();
+
+            cy.get('iframe').should('have.attr', 'src').and('contain', 'https://login.brandboom.us/__/auth/iframe?apiKey=AIzaSyC2-Lg8UR1Ce5An7YV7BZigyiEG_JyFXLo&appName=%5BDEFAULT%5D&v=9.23.0&eid=p&usegapi=');
+        });
     })
 
     describe('Seller Login Testcases', () => {
@@ -298,7 +305,7 @@ describe('Login Tests', () => {
         });
     })
 
-    describe.only('Admin Login Testcases', () => {
+    describe('Admin Login Testcases', () => {
         beforeEach(() => {
         });
 

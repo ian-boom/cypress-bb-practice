@@ -4,7 +4,9 @@
   "description": "Testing BrandBoom out on .us (possibly on .co and .com if applicable)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "author": "Kurt Ian Khalid Israel",
   "license": "ISC",
