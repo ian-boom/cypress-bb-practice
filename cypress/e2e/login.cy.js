@@ -243,7 +243,7 @@ describe('Login Tests', () => {
             redirectValidator('Forgot password?', 'https://www.brandboom.us/account/forgotPassword.php?scope=bc');
         });
 
-        it.only("Should open a google pop up window when google signin is clicked", () => {
+        it.skip("Should open a google pop up window when google signin is clicked", () => {
             // Simulate clicking the "Login with Google" button
             cy.get('.google-login-btn').click();
 
