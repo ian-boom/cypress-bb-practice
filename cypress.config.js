@@ -9,5 +9,6 @@ module.exports = defineConfig({
     env: {
         buyerBaseUrl: 'www.brandboom.us',
         sellerBaseUrl: 'manage.brandboom.us'
-    }
+    },
+    projectId: "y7p2z9",
 });
