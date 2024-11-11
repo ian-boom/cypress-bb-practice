@@ -8,6 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        group: [group1, group2, group3]
         containers: [1, 2, 3]
     steps:
       - name: Checkout
@@ -16,12 +17,11 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          runTests: npm run cypress:run
-          record: true
+          runTests: npm run cy:${{ matrix.group }}
           browser: chrome
-          parallel: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          BUILD_ID: ${{ github.sha }}
 
     # Upload screenshots as artifacts in case of test failures
       - name: Upload screenshots

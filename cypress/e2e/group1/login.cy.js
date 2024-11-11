@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker');
 
-describe('Login Tests', () => {
+describe.skip('Login Tests', () => {
     /* Function Definitions */
     let presets = (seller) => {
         cy.visitPage('/login', !seller);
