@@ -9,7 +9,6 @@ jobs:
       fail-fast: false
       matrix:
         group: [group1, group2, group3]
-        containers: [1, 2, 3]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
