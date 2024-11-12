@@ -17,7 +17,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           command: npm run cy:${{ matrix.group }}
-          browser: chrome
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           BUILD_ID: ${{ github.sha }}
