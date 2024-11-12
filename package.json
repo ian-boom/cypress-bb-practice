@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cy:group1": "cypress run --record --parallel --group group1 --ci-build-id $BUILD_ID --spec cypress/e2e/group1/**/*",
+    "cy:group2": "cypress run --record --parallel --group group2 --ci-build-id $BUILD_ID --spec 'cypress/e2e/group2/**/*'",
+    "cy:group3": "cypress run --record --parallel --group group3 --ci-build-id $BUILD_ID --spec 'cypress/e2e/group3/**/*'"
   },
   "author": "Kurt Ian Khalid Israel",
   "license": "ISC",

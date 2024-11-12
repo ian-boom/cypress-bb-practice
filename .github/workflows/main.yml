@@ -16,12 +16,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          command: run
-          record: true
-          parallel: true
-          group: ${{ matrix.group }}
-          ci-build-id: ${{ github.sha }}
-          spec: cypress/e2e/${{ matrix.group }}/**/*
+          command: npm run cy:${{ matrix.group }}
           browser: chrome
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
