@@ -13,18 +13,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          runTests: npm run cy:${{ matrix.group }}
+          command: run
+          record: true
+          parallel: true
+          group: ${{ matrix.group }}
+          ci-build-id: ${{ github.sha }}
+          spec: cypress/e2e/${{ matrix.group }}/**/*
           browser: chrome
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           BUILD_ID: ${{ github.sha }}
-
-    # Upload screenshots as artifacts in case of test failures
-      - name: Upload screenshots
-        if: failure()  # Only run this step if tests fail
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
