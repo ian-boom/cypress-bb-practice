@@ -9,7 +9,10 @@
     "cypress:run": "cypress run",
     "cy:group1": "cypress run --record --group group1 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group1/**/*'",
     "cy:group2": "cypress run --record --group group2 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group2/**/*'",
-    "cy:group3": "cypress run --record --group group3 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group3/**/*'"
+    "cy:group3": "cypress run --record --group group3 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group3/**/*'",
+    "cy:group4": "cypress run --record --group group4 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group4/**/*'",
+    "cy:group5": "cypress run --record --group group5 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group5/**/*'",
+    "cy:group6": "cypress run --record --group group6 --ci-build-id $BUILD_ID --browser chrome --spec 'cypress/e2e/group6/**/*'"
   },
   "author": "Kurt Ian Khalid Israel",
   "license": "ISC",

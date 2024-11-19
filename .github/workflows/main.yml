@@ -3,30 +3,12 @@ name: Testing Cypress with GitHub Actions
 on: [push]
 
 jobs:
-  cypress-job-1:
+  install:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        group: [group1]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          command: npm run cy:${{ matrix.group }}
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          BUILD_ID: ${{ github.sha }}
-
-  cypress-job-2:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        group: [group2]
+        group: [group1, group2, group3, group4, group5, group6]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
